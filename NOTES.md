@@ -49,7 +49,20 @@
   passing (the v3b 10, plus 5 new: tile size/distinctness,
   determinism + panel fill, tile differs from a 1x draw,
   `illus()` pastes onto a page draw, rendered panels hold motifs).
-- Kit check: FRESH kit level 20 — see below (to be filled after the check run).
+- Kit check: FRESH kit downloaded 19 Nov ~03:20 WIB
+  (`news-image-20261118-v3c-kit`, bundle sha256
+  `d448959a49da725ffc84e5cb6c40f07aeadbfdc756fb846645400d164d165fea` —
+  same bundle as v3b's level-20 kit), run 19 Nov ~03:21 WIB against
+  commit 0aae646 WITHOUT transcripts (none bundled — DO NOT SUBMIT):
+  4 passed (competition_open, snapshot, license_osi, entrypoint),
+  1 failed (transcripts_present — expected: no bundle attached yet;
+  the bundle is the parent's submit-time step, run from the top
+  level after this subagent finishes, with --muse-usage,
+  --system-prompt, --mcp and harness facts), 13 skipped, 5 checked
+  at submission (repo public/owner/created-after-open/commit pushed/
+  duplicate snapshot — all satisfied by the pushed public repo).
+  No code check failed; the only failure is the not-yet-bundled
+  transcripts.
 
 ## Build notes
 
