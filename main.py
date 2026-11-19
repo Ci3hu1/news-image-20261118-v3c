@@ -214,6 +214,35 @@ def find_fonts():
 def here(*parts):
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), *parts)
 
+
+def default_candidates():
+    """Output paths to try, in order, when --output is not given."""
+    paths = []
+    env_dir = os.environ.get("MAKEFUN_OUTPUT_DIR")
+    if env_dir:
+        paths.append(os.path.join(env_dir, "entry.png"))
+    paths.append(os.path.join(os.sep, "output", "entry.png"))
+    paths.append(here("output.png"))
+    return paths
+
+
+def write_first_available(write_fn):
+    """Try write_fn(path) for each default candidate in order.
+
+    Returns the path that succeeded, or None if none worked.
+    """
+    failures = []
+    for path in default_candidates():
+        try:
+            write_fn(path)
+            return path
+        except Exception as exc:  # noqa: BLE001 - try the next candidate
+            failures.append(f"{path}: {exc}")
+    print("error: could not write output to any candidate path:", file=sys.stderr)
+    for failure in failures:
+        print(f"  {failure}", file=sys.stderr)
+    return None
+
 # ---------------------------------------------------------------- helpers
 
 def wrap(draw, text, font, max_w):
@@ -775,7 +804,7 @@ def check_data():
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Render THE DAY IN WORLD NEWS, 18 Nov 2026.")
-    ap.add_argument("--output", default=here("output.png"))
+    ap.add_argument("--output", default=None)
     ap.add_argument("--check", action="store_true",
                     help="validate data and renderability only")
     args = ap.parse_args(argv)
@@ -791,12 +820,24 @@ def main(argv=None):
         if not os.path.isfile(src):
             print("error: no Pillow/fonts and no bundled entry.png", file=sys.stderr)
             return 1
-        shutil.copyfile(src, args.output)
-        print(f"fallback: copied entry.png byte-for-byte -> {args.output}")
+        if args.output is not None:
+            shutil.copyfile(src, args.output)
+            print(f"fallback: copied entry.png byte-for-byte -> {args.output}")
+            return 0
+        used = write_first_available(lambda path: shutil.copyfile(src, path))
+        if used is None:
+            return 1
+        print(f"fallback: copied entry.png byte-for-byte -> {used}")
         return 0
     img = render(fonts)
-    img.save(args.output, "PNG")
-    print(f"rendered {img.size[0]}x{img.size[1]} -> {args.output}")
+    if args.output is not None:
+        img.save(args.output, "PNG")
+        print(f"rendered {img.size[0]}x{img.size[1]} -> {args.output}")
+        return 0
+    used = write_first_available(lambda path: img.save(path, "PNG"))
+    if used is None:
+        return 1
+    print(f"rendered {img.size[0]}x{img.size[1]} -> {used}")
     return 0
 
 
