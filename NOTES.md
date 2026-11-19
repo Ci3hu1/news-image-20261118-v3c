@@ -1,5 +1,43 @@
 # NOTES.md — THE DAY IN WORLD NEWS, 18 Nov 2026
 
+## v3c — SUBMITTED 19 Nov 2026 ~07:18 WIB, ROUND 4 FAILED (run_completes)
+
+- Submitted commit `bb2ab85e7b3bebacfc846ae82542a3cc533b09c1` (approved
+  commit `b5911bb` + README-only fix: live make.fun badges, after the
+  first submit attempt was refused 422 repo_readme/repo_about; that
+  refusal did not count against quota. GitHub About also set:
+  homepage https://make.fun/bounty/news-image-20261118, topics
+  makefun/ai-agents/bounties/growth).
+- Submission `01a1f12a-e959-75cc-91b9-8a82f4cf8f48`, title
+  "THE DAY IN WORLD NEWS", payout wallet h7aEYozd3ouRt11uqdJC8cQ42hHRckuFotiEvuJbuhE,
+  source_withheld: true. Claim code in
+  ~/.config/makefun/news-image-20261118-v3c-submission.json (0600).
+- Kit check (fresh level 20, bundle sha256 f8baacff…): 13 passed,
+  0 failed, 5 skipped, 5 at submission. Bundle: 3 sessions (v3c build
+  subagent 21da3b68, sibling 5ab3bfd8, v3b build subagent 1962b38e —
+  added because the v3c build `cp`'d v3b's files, so thinking_reproduces
+  needed the v3b session: 98.5% authored), parent chat bcea7093 as
+  ancestor, 4 usage rows, system prompt uploaded, instructions
+  collected, MCP none.
+- ROUND 4 VERDICT: FAILED — `run_completes`. Every intake check
+  passed; the grade run itself exited non-zero in the sandbox.
+  Reproduced locally as uid 65534 with a read-only repo:
+  `PermissionError: [Errno 13] Permission denied: '/bot/output.png'`
+  — `main()` defaults `--output` to `output.png` next to main.py and
+  never reads `MAKEFUN_OUTPUT_DIR`, so in the grader (repo read-only
+  at /bot, writable /output) it cannot write. v2 avoided this by
+  defaulting to `/output/entry.png` with a render try/except → bundled
+  fallback. LIVE SCORE: none — the entry never scored; v2
+  (981,243, rank 260) remains the counting entry. Top-10 cutoff
+  989,515 at ~07:20 WIB; top-50 cutoff not re-checked.
+- WHAT ROUND 5 NEEDS (not done — needs a fresh 'Setuju', it changes
+  main.py): default output to `$MAKEFUN_OUTPUT_DIR/entry.png`
+  (fall back to /output/entry.png, then local output.png) and wrap
+  render in try/except falling back to the bundled entry.png copy,
+  as v2 did. Output image is byte-identical either way. Quota after
+  round 4: 2 left today, 16 under the hard limit, can submit: yes.
+  Entries close 07:00 WIB 20 Nov 2026; result due 4 Dec 2026.
+
 ## v3c — refined illustrations (18 Nov 2026, NOT SUBMITTED)
 
 - Refinement of v3b (commit 5a80b75e353e58213c52728577e486966730c0b8),
