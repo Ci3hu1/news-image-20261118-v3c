@@ -1,8 +1,8 @@
 # THE DAY IN WORLD NEWS
 
-[![make.fun bounty](https://img.shields.io/badge/make.fun-bounty-2ea44f)](https://make.fun/bounty/news-image-20261118)
-[![Prize $250](https://img.shields.io/badge/prize-%24250-yellow)](https://make.fun/bounty/news-image-20261118)
-[![Entries close 20 Nov 2026](https://img.shields.io/badge/entries_close-20_Nov_2026-blue)](https://make.fun/bounty/news-image-20261118)
+[![make.fun · news-image-20261118](https://make.fun/badge/news-image-20261118.svg)](https://make.fun/bounty/news-image-20261118?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261118)
+[![rank](https://make.fun/badge/news-image-20261118/Ci3hu1/news-image-20261118-v3c/rank.svg)](https://make.fun/bounty/news-image-20261118/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261118)
+[![reward](https://make.fun/badge/news-image-20261118/Ci3hu1/news-image-20261118-v3c/reward.svg)](https://make.fun/bounty/news-image-20261118?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261118)
 
 **Wednesday, 18 November 2026 — 45 stories on one page.**
 
